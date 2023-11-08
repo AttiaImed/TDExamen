@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
     public class Main {
-        public static void main(String[] args) throws VoitureException {
+        public static void main(String[] args) {
 
             Voiture voiture1 = new Voiture("233 TN 1234", "Toyota", 50000);
             Voiture voiture2 = new Voiture("220 TN 4321", "Honda", 600000);
@@ -14,20 +14,44 @@ import java.util.List;
             Client client2 = new Client(2, "Chargui", "MedWassef");
 
             Agence agence = new Agence("KaryaBehiya");
-            agence.getParking().ajouterVoiture(voiture1);
-            agence.getParking().ajouterVoiture(voiture2);
-            agence.getParking().ajouterVoiture(voiture3);
+            try {
+                agence.getParking().ajouterVoiture(voiture1);
+            } catch (VoitureException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                agence.getParking().ajouterVoiture(voiture2);
+            } catch (VoitureException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                agence.getParking().ajouterVoiture(voiture3);
+            } catch (VoitureException e) {
+                throw new RuntimeException(e);
+            }
 
-            agence.louerVoiture(client1, voiture1);
-            agence.louerVoiture(client1, voiture2);
-            agence.louerVoiture(client2, voiture3);
+            try {
+                agence.louerVoiture(client1, voiture1);
+            } catch (VoitureException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                agence.louerVoiture(client1, voiture2);
+            } catch (VoitureException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                agence.louerVoiture(client2, voiture3);
+            } catch (VoitureException e) {
+                throw new RuntimeException(e);
+            }
 
             System.out.println("Voitures en location :");
             for (Voiture voiture : agence.voituresEnLocation()) {
                 System.out.println(voiture.getImmatriculation() + " / " + voiture.getMarque());
             }
 
-            agence.retournerVoiture(client2,voiture3);
+
 
 
             CriterePrix cp = new CriterePrix(50000);
@@ -41,6 +65,12 @@ import java.util.List;
             agence.afficheLesClientsEtLeursListesVoitures();
 
 
+            try {
+                agence.retournerVoiture(client2,voiture3);
+            } catch (VoitureException e) {
+                throw new RuntimeException(e);
+            }
+
             List<Client> clients = new ArrayList<>(agence.clientsAyantLoueVoiture());
             agence.trierClientsParCode(clients);
             System.out.println("Clients triés par code :");
@@ -52,7 +82,7 @@ import java.util.List;
             agence.trierClientsParNom(clients);
             System.out.println("Clients triés par nom :");
             for (Client client : clients) {
-                System.out.println(client.getNom() + " " + client.getPrenom() + " - " + client.getCode());
+                System.out.println(client.getCode() + " - " + client.getNom() + " " + client.getPrenom());
             }
 
         }
