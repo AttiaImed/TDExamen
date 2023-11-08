@@ -33,9 +33,6 @@ public class Agence {
     public void setClientVoitureLoue(Map<Client, ListVoiture> clientVoitureLoue) {
         this.clientVoitureLoue = clientVoitureLoue;
     }
-
-
-
     public void ajoutVoiture(Voiture v)
             throws VoitureException {
         if(!parking.getVoitures().contains(v)){
@@ -48,7 +45,7 @@ public class Agence {
         if(parking.getVoitures().contains(v)){
             parking.supprimerVoiture(v);
         }else
-            throw new VoitureException("Voiture ,'existe pas");
+            throw new VoitureException("Voiture n'existe pas");
     }
 
     public void louerVoiture(Client client, Voiture voiture) throws VoitureException {
@@ -62,8 +59,10 @@ public class Agence {
 
     public void retournerVoiture(Client client, Voiture voiture) throws VoitureException {
         if (clientVoitureLoue.containsKey(client)) {
-            ListVoiture listeVoituresLouees = clientVoitureLoue.get(client);
-            listeVoituresLouees.supprimerVoiture(voiture);
+           if(!clientVoitureLoue.get(client).getVoitures().isEmpty())
+               clientVoitureLoue.get(client).supprimerVoiture(voiture);
+           else
+               clientVoitureLoue.remove(client);
         }else
             throw new VoitureException("Voiture n'existe pas dans ce client");
     }
