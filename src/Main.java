@@ -1,6 +1,8 @@
 import Exceptions.VoitureException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
     public class Main {
@@ -72,18 +74,26 @@ import java.util.List;
             }
 
             List<Client> clients = new ArrayList<>(agence.clientsAyantLoueVoiture());
-            agence.trierClientsParCode(clients);
+            agence.trierClientsParCode();
             System.out.println("Clients triés par code :");
             for (Client client : clients) {
                 System.out.println(client.getCode() + " - " + client.getNom() + " " + client.getPrenom());
             }
 
 
-            agence.trierClientsParNom(clients);
+            agence.trierClientsParNom();
             System.out.println("Clients triés par nom :");
             for (Client client : clients) {
                 System.out.println(client.getCode() + " - " + client.getNom() + " " + client.getPrenom());
             }
+            Critere c = (Voiture v) -> v.getPrix()>=70 && v.getMarque().equals("fiat");
+            List<Voiture> l3 = agence.voitureCritere((Voiture v) -> v.getPrix()>=70 && v.getMarque().equals("fiat"));
+            l3.add(voiture1);
+            l3.add(voiture2);
+            l3.add(voiture3);
+
+            Collections.sort(l3, Comparator.comparing(Voiture::getMarque));
+
 
         }
     }

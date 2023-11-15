@@ -1,9 +1,6 @@
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Objects;
 
-public class Client {
+public class Client implements Comparable<Client>{
     private int code;
     private String nom;
     private String prenom;
@@ -46,5 +43,10 @@ public class Client {
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Client o) {
+        return this.code - o.code;
     }
 }

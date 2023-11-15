@@ -28,10 +28,7 @@ public class ListVoiture {
     public List<Voiture> getVoitures() {
         return voitures;
     }
-
-
-    public Iterator<Voiture>
-    iterateur(){ return voitures.iterator();
+    public Iterator<Voiture> iterateur(){ return voitures.iterator();
     }
     public int size(){
         return voitures.size();

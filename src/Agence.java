@@ -54,9 +54,6 @@ public class Agence {
         }
         clientVoitureLoue.get(client).ajouterVoiture(voiture);
     }
-
-
-
     public void retournerVoiture(Client client, Voiture voiture) throws VoitureException {
         if (clientVoitureLoue.containsKey(client)) {
            if(!clientVoitureLoue.get(client).getVoitures().isEmpty())
@@ -92,16 +89,17 @@ public class Agence {
     public void afficheLesClientsEtLeursListesVoitures(){
         for (Map.Entry<Client, ListVoiture> map : clientVoitureLoue.entrySet()) {
             System.out.println("Client: " + map.getKey().getNom() + " " + map.getKey().getPrenom());
-            for (Voiture voiture : map.getValue().getVoitures()) {
-                System.out.println(voiture.getImmatriculation() + " / " + voiture.getMarque());
-            }
+            map.getValue().affiche();
         }
     }
-    public void trierClientsParCode(List<Client> clients) {
-        Collections.sort(clients, new TriCode());
+    public Map<Client,ListVoiture> trierClientsParCode() {
+        TreeMap<Client,ListVoiture> tre = new TreeMap<>();
+        tre.putAll(clientVoitureLoue);
+        return tre;
     }
 
-    public void trierClientsParNom(List<Client> clients) {
-        Collections.sort(clients, new TriNom());
-    }
+    public Map<Client,ListVoiture> trierClientsParNom() {
+        TreeMap<Client,ListVoiture> tre = new TreeMap<>(new TriNom());
+        tre.putAll(clientVoitureLoue);
+        return tre;    }
 }
